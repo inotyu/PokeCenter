@@ -46,14 +46,14 @@ export const apiClient = {
 
   // Auth endpoints
   async login(email: string, password: string) {
-    return this.request<{ user: any; access_token: string }>('/auth/login', {
+    return this.request<{ user: any; access_token: string }>('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
   },
 
   async register(email: string, password: string) {
-    return this.request<{ user: any; access_token: string }>('/auth/register', {
+    return this.request<{ user: any; access_token: string }>('/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export const apiClient = {
 
   // Pokemon endpoints
   async getPokemon(token: string) {
-    return this.request<any[]>('/pokemon', {
+    return this.request<any[]>('/api/pokemon', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -73,7 +73,7 @@ export const apiClient = {
   },
 
   async createPokemon(data: any, token: string) {
-    return this.request<any>('/pokemon', {
+    return this.request<any>('/api/pokemon', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export const apiClient = {
   },
 
   async updatePokemon(id: string, data: any, token: string) {
-    return this.request<any>(`/pokemon/${id}`, {
+    return this.request<any>(`/api/pokemon/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export const apiClient = {
   },
 
   async deletePokemon(id: string, token: string) {
-    return this.request(`/pokemon/${id}`, {
+    return this.request(`/api/pokemon/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
