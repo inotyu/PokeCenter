@@ -20,6 +20,7 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api');
   app.enableCors({
+    // CORS configured for production domains
     origin: [
       'https://pokecenter-kohl.vercel.app',
       'https://pokecenter.vercel.app',
