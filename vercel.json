@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "backend/package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/dist/main.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "postgresql://postgres:pokecenter2025%40@db.oadumwhamowfngckklvw.supabase.co:5432/postgres",
+    "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
+    "JWT_EXPIRES_IN": "7d",
+    "FRONTEND_URL": "https://pokecenter-kohl.vercel.app",
+    "NEXT_PUBLIC_API_URL": "https://pokecenter-kohl.vercel.app/api"
+  },
+  "installCommand": "cd frontend && npm install && cd ../backend && npm install",
+  "buildCommand": "cd frontend && npm run build && cd ../backend && npm run build"
+}

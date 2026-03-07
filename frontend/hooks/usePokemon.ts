@@ -12,7 +12,7 @@ export function usePokemon() {
     try {
       setLoading(true);
       const data = await apiClient.getPokemon(token);
-      setPokemon(data);
+      setPokemon(data || []);
     } catch (error) {
       console.error('Error fetching pokemon:', error);
     } finally {

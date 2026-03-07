@@ -29,12 +29,12 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-    const result = await register(form.email, form.password);
+    const result = await register("", form.email, form.password, "trainer");
     setLoading(false);
-    if (result.success) {
+    if (result) {
       router.push("/dashboard");
     } else {
-      setErrors({ email: result.error || 'Erro ao criar conta' });
+      setErrors({ email: 'Erro ao criar conta' });
     }
   }
 

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.ts"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "postgresql://postgres:pokecenter2025%40@db.oadumwhamowfngckklvw.supabase.co:5432/postgres",
+    "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
+    "JWT_EXPIRES_IN": "7d",
+    "FRONTEND_URL": "https://pokecenter-kohl.vercel.app"
+  }
+}

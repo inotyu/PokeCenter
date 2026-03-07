@@ -23,16 +23,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await apiClient.login(email, password);
       
-      if (response.access_token) {
+      if (response?.access_token) {
         setState({ 
-          user: response.user, 
+          user: response?.user, 
           isAuthenticated: true,
-          token: response.access_token 
+          token: response?.access_token 
         });
         
         // Salvar token no localStorage
-        localStorage.setItem('pokemon_token', response.access_token);
-        localStorage.setItem('pokemon_user', JSON.stringify(response.user));
+        localStorage.setItem('pokemon_token', response?.access_token);
+        localStorage.setItem('pokemon_user', JSON.stringify(response?.user));
       }
       
       return true;
@@ -43,38 +43,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(
-    async (email: string, password: string): Promise<{success: boolean, error?: string}> => {
+    async (name: string, email: string, password: string, role: User["role"]): Promise<boolean> => {
       try {
         const response = await apiClient.register(email, password);
         
-        if (response.access_token) {
+        if (response?.access_token) {
           setState({ 
-            user: response.user, 
+            user: response?.user, 
             isAuthenticated: true,
-            token: response.access_token 
+            token: response?.access_token 
           });
           
           // Salvar token no localStorage
-          localStorage.setItem('pokemon_token', response.access_token);
-          localStorage.setItem('pokemon_user', JSON.stringify(response.user));
+          localStorage.setItem('pokemon_token', response?.access_token);
+          localStorage.setItem('pokemon_user', JSON.stringify(response?.user));
           
-          return { success: true };
+          return true;
         }
-        return { success: false, error: 'Erro desconhecido' };
+        return false;
       } catch (error: any) {
         console.error('Register error:', error);
-        
-        // Extrair mensagem de erro específica
-        let errorMessage = 'Erro ao criar conta';
-        if (error.message && typeof error.message === 'string') {
-          errorMessage = error.message;
-        } else if (error.response?.data?.message) {
-          errorMessage = error.response.data.message;
-        }
-        
-        return { success: false, error: errorMessage };
+        return false;
       }
-    }, []);
+    }, []
+  );
 
   const logout = useCallback(() => {
     setState({ user: null, isAuthenticated: false, token: null });
