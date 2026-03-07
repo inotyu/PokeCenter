@@ -11,14 +11,14 @@ import { User } from "@/types";
 export default function RegisterPage() {
   const { register } = useAuth();
   const router = useRouter();
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", role: "trainer" as User["role"] });
+  const [form, setForm] = useState({ email: "", password: "", confirm: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
   function validate() {
     const e: Record<string, string> = {};
-    if (!form.name.trim()) e.name = "Nome é obrigatório";
-    if (!form.email.includes("@")) e.email = "E-mail inválido";
+    if (!form.email.trim()) e.email = "E-mail é obrigatório";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "E-mail deve ser válido";
     if (form.password.length < 6) e.password = "Mínimo 6 caracteres";
     if (form.password !== form.confirm) e.confirm = "As senhas não coincidem";
     setErrors(e);
@@ -29,9 +29,13 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-    const ok = await register(form.name, form.email, form.password, form.role);
+    const result = await register(form.email, form.password);
     setLoading(false);
-    if (ok) router.push("/dashboard");
+    if (result.success) {
+      router.push("/dashboard");
+    } else {
+      setErrors({ email: result.error || 'Erro ao criar conta' });
+    }
   }
 
   const field = (key: keyof typeof form) => ({
@@ -54,25 +58,13 @@ export default function RegisterPage() {
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Input label="Nome completo" placeholder="Ash Ketchum" {...field("name")} />
             <Input label="E-mail" type="email" placeholder="ash@pokemon.com" {...field("email")} />
 
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-semibold text-gray-700">Função</label>
-              <select
-                value={form.role}
-                onChange={(e) => setForm((p) => ({ ...p, role: e.target.value as User["role"] }))}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:border-pokemon-blue focus:ring-2 focus:ring-blue-100 transition-all bg-white"
-              >
-                <option value="trainer">Treinador</option>
-                <option value="researcher">Pesquisador</option>
-              </select>
-            </div>
+            <Input label="Senha" type="password" placeholder="Mínimo 6 caracteres" {...field("password")} />
+            
+            <Input label="Confirmar senha" type="password" placeholder="Repita sua senha" {...field("confirm")} />
 
-            <Input label="Senha" type="password" placeholder="••••••••" {...field("password")} />
-            <Input label="Confirmar senha" type="password" placeholder="••••••••" {...field("confirm")} />
-
-            <Button type="submit" size="lg" loading={loading} className="w-full">
+            <Button type="submit" loading={loading} className="w-full">
               Criar conta
             </Button>
           </form>

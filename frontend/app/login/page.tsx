@@ -19,6 +19,22 @@ export default function LoginPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
+
+    // Validação de email
+    if (!email.trim()) {
+      setError("E-mail é obrigatório");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("E-mail deve ser válido");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Senha é obrigatória");
+      return;
+    }
+
     setLoading(true);
     const ok = await login(email, password);
     setLoading(false);

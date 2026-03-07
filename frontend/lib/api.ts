@@ -1,0 +1,107 @@
+// API Configuration
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
+// HTTP Client
+export const apiClient = {
+  async request<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
+    const url = `${API_BASE_URL}${endpoint}`;
+    
+    console.log(`🌐 API Request: ${options.method || 'GET'} ${url}`);
+    
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+        ...options,
+      });
+
+      console.log(`📡 Response status: ${response.status} ${response.statusText}`);
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
+        }
+        console.error('❌ API Error:', errorData);
+        throw new Error(errorData.message || 'Request failed');
+      }
+
+      // Handle 204 No Content responses
+      if (response.status === 204) {
+        return null;
+      }
+
+      const data = await response.json();
+      console.log('✅ API Success:', data);
+      return data;
+    } catch (error) {
+      console.error('💥 Network Error:', error);
+      throw error;
+    }
+  },
+
+  // Auth endpoints
+  async login(email: string, password: string) {
+    return this.request<{ user: any; access_token: string }>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+  },
+
+  async register(email: string, password: string) {
+    return this.request<{ user: any; access_token: string }>('/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+  },
+
+  // Pokemon endpoints
+  async getPokemon(token: string) {
+    return this.request<any[]>('/pokemon', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+  },
+
+  async createPokemon(data: any, token: string) {
+    return this.request<any>('/pokemon', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+  },
+
+  async updatePokemon(id: string, data: any, token: string) {
+    return this.request<any>(`/pokemon/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+  },
+
+  async deletePokemon(id: string, token: string) {
+    return this.request(`/pokemon/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+  },
+};
+
+export type { ApiResponse, LoginResponse, Pokemon, CreatePokemonRequest } from './types';

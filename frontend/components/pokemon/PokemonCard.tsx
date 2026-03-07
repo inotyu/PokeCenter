@@ -52,7 +52,7 @@ export function PokemonCard({ pokemon, ownerName, isOwner, onEdit, onDelete }: P
         </div>
 
         <div className="flex flex-wrap gap-1 mb-2 md:mb-3">
-          {pokemon.types.map((t) => <TypeBadge key={t} type={t} size="sm" />)}
+          <TypeBadge key={pokemon.type} type={pokemon.type as any} size="sm" />
         </div>
 
         <div className="grid grid-cols-2 gap-x-3 gap-y-1 mb-2 md:mb-3">

@@ -14,6 +14,7 @@ interface SearchBarProps {
 const FILTER_TYPES: Array<PokemonType | "all"> = [
   "all", "fire", "water", "grass", "electric", "psychic",
   "ice", "fighting", "poison", "ghost", "dragon", "dark", "fairy", "flying",
+  "fire/flying", "grass/poison", "water/dark", "dragon/ground", "steel/psychic", "rock/dark"
 ];
 
 export function SearchBar({ query, onQueryChange, selectedType, onTypeChange }: SearchBarProps) {

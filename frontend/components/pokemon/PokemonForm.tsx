@@ -19,7 +19,7 @@ interface PokemonFormProps {
 export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFormProps) {
   const [form, setForm] = useState<PokemonFormData>({
     name: initial?.name ?? "",
-    types: initial?.types ?? [],
+    type: initial?.type ?? "",
     level: initial?.level ?? 1,
     hp: initial?.hp ?? 45,
     pokedexNumber: initial?.pokedexNumber ?? 1,
@@ -30,21 +30,17 @@ export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFor
   function toggleType(type: PokemonType) {
     setForm((prev) => ({
       ...prev,
-      types: prev.types.includes(type)
-        ? prev.types.filter((t) => t !== type)
-        : prev.types.length < 2
-        ? [...prev.types, type]
-        : prev.types,
+      type: prev.type === type ? "" : type,
     }));
   }
 
   function validate(): boolean {
     const e: typeof errors = {};
     if (!form.name.trim()) e.name = "Nome é obrigatório";
-    if (form.types.length === 0) e.types = "Selecione ao menos um tipo";
+    if (!form.type) e.type = "Selecione um tipo";
     if (form.level < 1 || form.level > 100) e.level = "Nível deve ser entre 1 e 100";
-    if (form.hp < 1) e.hp = "HP deve ser maior que 0";
-    if (form.pokedexNumber < 1) e.pokedexNumber = "Número inválido";
+    if (form.hp < 1 || form.hp > 999) e.hp = "HP deve ser entre 1 e 999";
+    if (form.pokedexNumber < 1 || form.pokedexNumber > 1000) e.pokedexNumber = "Número deve ser entre 1 e 1000";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -69,6 +65,7 @@ export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFor
           label="Nº Pokédex"
           type="number"
           min={1}
+          max={1000}
           placeholder="Ex: 25"
           value={form.pokedexNumber}
           onChange={(e) => setForm((p) => ({ ...p, pokedexNumber: Number(e.target.value) }))}
@@ -87,6 +84,7 @@ export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFor
           label="HP"
           type="number"
           min={1}
+          max={999}
           value={form.hp}
           onChange={(e) => setForm((p) => ({ ...p, hp: Number(e.target.value) }))}
           error={errors.hp}
@@ -95,11 +93,11 @@ export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFor
 
       <div>
         <label className="text-sm font-semibold text-gray-700 block mb-2">
-          Tipos <span className="text-gray-400 font-normal">(máx. 2)</span>
+          Tipo <span className="text-gray-400 font-normal">(selecione 1)</span>
         </label>
         <div className="flex flex-wrap gap-1.5">
           {ALL_TYPES.map((type) => {
-            const selected = form.types.includes(type);
+            const selected = form.type === type;
             return (
               <button
                 key={type}
@@ -112,7 +110,7 @@ export function PokemonForm({ initial, onSubmit, onCancel, loading }: PokemonFor
             );
           })}
         </div>
-        {errors.types && <p className="text-xs text-red-500 mt-1">{errors.types}</p>}
+        {errors.type && <p className="text-xs text-red-500 mt-1">{errors.type}</p>}
       </div>
 
       <Input

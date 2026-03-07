@@ -8,7 +8,7 @@ interface TypeBadgeProps {
 }
 
 export function TypeBadge({ type, size = "md" }: TypeBadgeProps) {
-  const colors = TYPE_COLORS[type];
+  const colors = TYPE_COLORS[type as PokemonType] || TYPE_COLORS.normal;
   return (
     <span
       className={cn(

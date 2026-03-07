@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import { Plus, BarChart2, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { usePokemon } from "@/hooks/usePokemon";
+import { useToast } from "@/hooks/useToast";
+import { useUsers } from "@/hooks/useUsers";
 import { PokemonCard } from "@/components/pokemon/PokemonCard";
 import { PokemonForm } from "@/components/pokemon/PokemonForm";
 import { SearchBar } from "@/components/pokemon/SearchBar";
@@ -11,12 +13,14 @@ import { StatsPanel } from "@/components/pokemon/StatsPanel";
 import { DeleteConfirm } from "@/components/pokemon/DeleteConfirm";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
-import { MOCK_USERS } from "@/data/mock";
+import { ToastContainer } from "@/components/ui/Toast";
 import { Pokemon, PokemonFormData, PokemonType } from "@/types";
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { pokemon, add, update, remove } = usePokemon();
+  const { toasts, success, error } = useToast();
+  const { getUserName } = useUsers();
 
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<PokemonType | "all">("all");
@@ -32,40 +36,59 @@ export default function DashboardPage() {
         !query ||
         p.name.toLowerCase().includes(query.toLowerCase()) ||
         String(p.pokedexNumber).includes(query);
-      const matchesType = selectedType === "all" || p.types.includes(selectedType);
+      const matchesType = selectedType === "all" || p.type.includes(selectedType);
       return matchesQuery && matchesType;
     });
   }, [pokemon, query, selectedType]);
 
   async function handleAdd(data: PokemonFormData) {
+    if (!token) return;
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 400));
-    add(data, user!.id);
-    setSaving(false);
-    setAddOpen(false);
+    try {
+      await add(data, token);
+      setAddOpen(false);
+      success(`${data.name} adicionado com sucesso!`);
+    } catch (err) {
+      console.error('Error adding pokemon:', err);
+      error(`Erro ao adicionar ${data.name}`);
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function handleEdit(data: PokemonFormData) {
-    if (!editTarget) return;
+    if (!editTarget || !token) return;
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 400));
-    update(editTarget.id, data, user!.id);
-    setSaving(false);
-    setEditTarget(null);
+    try {
+      await update(editTarget.id, data, token);
+      setEditTarget(null);
+      success(`${editTarget.name} atualizado com sucesso!`);
+    } catch (err) {
+      console.error('Error updating pokemon:', err);
+      error(`Erro ao atualizar ${editTarget.name}`);
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function handleDelete() {
-    if (!deleteTarget) return;
+    if (!deleteTarget || !token) return;
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 400));
-    remove(deleteTarget.id, user!.id);
-    setSaving(false);
-    setDeleteTarget(null);
+    try {
+      await remove(deleteTarget.id, token);
+      setDeleteTarget(null);
+      success(`${deleteTarget.name} excluído com sucesso!`);
+    } catch (err) {
+      console.error('Error deleting pokemon:', err);
+      error(`Erro ao excluir ${deleteTarget.name}`);
+    } finally {
+      setSaving(false);
+    }
   }
 
-  function getOwnerName(createdBy: string) {
-    return MOCK_USERS.find((u) => u.id === createdBy)?.name ?? "Desconhecido";
-  }
+  function getOwnerName(ownerId: string) {
+  return getUserName(ownerId, user?.id);
+}
 
   return (
     <div className="flex h-full overflow-hidden">
@@ -116,8 +139,8 @@ export default function DashboardPage() {
                 <PokemonCard
                   key={p.id}
                   pokemon={p}
-                  ownerName={getOwnerName(p.createdBy)}
-                  isOwner={p.createdBy === user?.id}
+                  ownerName={getOwnerName(p.ownerId)}
+                  isOwner={p.ownerId === user?.id}
                   onEdit={setEditTarget}
                   onDelete={setDeleteTarget}
                 />
@@ -181,6 +204,8 @@ export default function DashboardPage() {
           />
         )}
       </Modal>
+
+      <ToastContainer toasts={toasts} onClose={(id) => {}} />
     </div>
   );
 }

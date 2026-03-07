@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const TYPE_COLORS: Record<PokemonType, { bg: string; text: string; border: string }> = {
+export const TYPE_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   fire:     { bg: "bg-orange-100", text: "text-orange-700", border: "border-orange-300" },
   water:    { bg: "bg-blue-100",   text: "text-blue-700",   border: "border-blue-300" },
   grass:    { bg: "bg-green-100",  text: "text-green-700",  border: "border-green-300" },
@@ -25,9 +25,16 @@ export const TYPE_COLORS: Record<PokemonType, { bg: string; text: string; border
   steel:    { bg: "bg-slate-100",  text: "text-slate-700",  border: "border-slate-300" },
   fairy:    { bg: "bg-rose-100",   text: "text-rose-600",   border: "border-rose-300" },
   normal:   { bg: "bg-gray-100",   text: "text-gray-600",   border: "border-gray-300" },
+  // Tipos compostos para compatibilidade
+  "fire/flying":    { bg: "bg-orange-100", text: "text-orange-700", border: "border-orange-300" },
+  "grass/poison":   { bg: "bg-green-100",  text: "text-green-700",  border: "border-green-300" },
+  "water/dark":     { bg: "bg-blue-100",   text: "text-blue-700",   border: "border-blue-300" },
+  "dragon/ground":  { bg: "bg-blue-100",   text: "text-blue-800",   border: "border-blue-400" },
+  "steel/psychic":  { bg: "bg-slate-100",  text: "text-slate-700",  border: "border-slate-300" },
+  "rock/dark":      { bg: "bg-stone-100",  text: "text-stone-700",  border: "border-stone-300" },
 };
 
-export const TYPE_CARD_COLORS: Record<PokemonType, string> = {
+export const TYPE_CARD_COLORS: Record<string, string> = {
   fire:     "from-orange-400 to-red-500",
   water:    "from-blue-400 to-cyan-500",
   grass:    "from-green-400 to-emerald-500",
@@ -46,6 +53,9 @@ export const TYPE_CARD_COLORS: Record<PokemonType, string> = {
   steel:    "from-slate-400 to-gray-500",
   fairy:    "from-rose-300 to-pink-400",
   normal:   "from-gray-300 to-gray-400",
+  // Tipos compostos
+  "fire/flying":    "from-orange-400 to-red-500",
+  "grass/poison":   "from-green-400 to-emerald-500",
 };
 
 export function formatPokedexNumber(n: number) {

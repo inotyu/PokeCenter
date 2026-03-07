@@ -12,7 +12,9 @@ interface StatsPanelProps {
 
 export function StatsPanel({ pokemon }: StatsPanelProps) {
   const typeCounts = pokemon.reduce<Record<string, number>>((acc, p) => {
-    p.types.forEach((t) => { acc[t] = (acc[t] ?? 0) + 1; });
+    if (p.type) {
+      acc[p.type] = (acc[p.type] ?? 0) + 1;
+    }
     return acc;
   }, {});
 
@@ -31,12 +33,12 @@ export function StatsPanel({ pokemon }: StatsPanelProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-3">
           {featured.map((p) => (
             <div key={p.id} className="bg-white rounded-xl border border-gray-100 p-3 flex gap-3 items-center shadow-sm">
-              <div className="w-14 h-14 bg-gray-50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="relative w-12 h-12 md:w-16 md:h-16 flex-shrink-0 bg-gray-50 rounded-lg flex items-center justify-center">
                 <Image
                   src={p.imageUrl}
                   alt={p.name}
-                  width={52}
-                  height={52}
+                  width={60}
+                  height={60}
                   className="object-contain drop-shadow"
                   unoptimized
                 />
@@ -47,7 +49,7 @@ export function StatsPanel({ pokemon }: StatsPanelProps) {
                   <span className="text-xs text-gray-400">{formatPokedexNumber(p.pokedexNumber)}</span>
                 </div>
                 <div className="flex gap-1 mt-1 flex-wrap">
-                  {p.types.map((t) => <TypeBadge key={t} type={t} size="sm" />)}
+                  <TypeBadge key={p.type} type={p.type as any} size="sm" />
                 </div>
               </div>
             </div>
@@ -63,7 +65,7 @@ export function StatsPanel({ pokemon }: StatsPanelProps) {
           {topTypes.map(([type, count]) => (
             <div
               key={type}
-              className={`bg-gradient-to-br ${TYPE_CARD_COLORS[type as PokemonType]} rounded-xl p-2 flex flex-col items-center gap-1`}
+              className={`bg-gradient-to-br ${TYPE_CARD_COLORS[type] || TYPE_CARD_COLORS.normal} rounded-xl p-2 flex flex-col items-center gap-1`}
             >
               <span className="text-white text-xs font-black capitalize">{type}</span>
               <span className="text-white/80 text-[10px]">{count} pkm</span>

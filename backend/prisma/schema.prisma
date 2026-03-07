@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password   String
+  createdAt DateTime @default(now())
+
+  pokemons Pokemon[]
+}
+
+model Pokemon {
+  id           String   @id @default(cuid())
+  name         String
+  type         String
+  level        Int
+  hp           Int
+  pokedexNumber Int
+  imageUrl     String?  @default("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png")
+  ownerId      String
+  createdAt    DateTime @default(now())
+
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@map("pokemons")
+}

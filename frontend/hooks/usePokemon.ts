@@ -1,49 +1,72 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Pokemon, PokemonFormData } from "@/types";
-import { MOCK_POKEMON } from "@/data/mock";
+import { apiClient } from "@/lib/api";
 
 export function usePokemon() {
-  const [pokemon, setPokemon] = useState<Pokemon[]>(MOCK_POKEMON);
+  const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const add = useCallback((data: PokemonFormData, userId: string): Pokemon => {
-    const newPokemon: Pokemon = {
-      ...data,
-      id: String(Date.now()),
-      types: data.types,
-      imageUrl:
-        data.imageUrl ||
-        `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.pokedexNumber}.png`,
-      createdBy: userId,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
-    setPokemon((prev) => [newPokemon, ...prev]);
-    return newPokemon;
+  const fetchPokemon = useCallback(async (token: string) => {
+    try {
+      setLoading(true);
+      const data = await apiClient.getPokemon(token);
+      setPokemon(data);
+    } catch (error) {
+      console.error('Error fetching pokemon:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const update = useCallback((id: string, data: Partial<PokemonFormData>, userId: string): boolean => {
-    setPokemon((prev) =>
-      prev.map((p) => {
-        if (p.id !== id || p.createdBy !== userId) return p;
-        return {
-          ...p,
-          ...data,
-          imageUrl:
-            data.imageUrl ||
-            `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.pokedexNumber ?? p.pokedexNumber}.png`,
-        };
-      })
-    );
-    return true;
+  const add = useCallback(async (data: PokemonFormData, token: string): Promise<Pokemon> => {
+    try {
+      const newPokemon = await apiClient.createPokemon(data, token);
+      setPokemon((prev) => [newPokemon, ...prev]);
+      return newPokemon;
+    } catch (error) {
+      console.error('Error adding pokemon:', error);
+      throw error;
+    }
   }, []);
 
-  const remove = useCallback((id: string, userId: string): boolean => {
-    const target = pokemon.find((p) => p.id === id);
-    if (!target || target.createdBy !== userId) return false;
-    setPokemon((prev) => prev.filter((p) => p.id !== id));
-    return true;
-  }, [pokemon]);
+  const update = useCallback(async (id: string, data: Partial<PokemonFormData>, token: string): Promise<boolean> => {
+    try {
+      await apiClient.updatePokemon(id, data, token);
+      setPokemon((prev) =>
+        prev.map((p) => {
+          if (p.id === id) {
+            return { ...p, ...data };
+          }
+          return p;
+        })
+      );
+      return true;
+    } catch (error) {
+      console.error('Error updating pokemon:', error);
+      return false;
+    }
+  }, []);
 
-  return { pokemon, add, update, remove };
+  const remove = useCallback(async (id: string, token: string): Promise<boolean> => {
+    try {
+      await apiClient.deletePokemon(id, token);
+      setPokemon((prev) => prev.filter((p) => p.id !== id));
+      return true;
+    } catch (error) {
+      console.error('Error deleting pokemon:', error);
+      return false;
+    }
+  }, []);
+
+  // Carregar Pokémon ao montar o componente
+  useEffect(() => {
+    const token = localStorage.getItem('pokemon_token');
+    if (token) {
+      fetchPokemon(token);
+    }
+  }, [fetchPokemon]);
+
+  return { pokemon, loading, add, update, remove };
 }
