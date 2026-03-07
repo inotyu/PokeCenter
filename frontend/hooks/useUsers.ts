@@ -11,14 +11,8 @@ export function useUsers() {
   const fetchUsers = useCallback(async (token: string) => {
     try {
       setLoading(true);
-      // Por enquanto, vamos usar os dados mockados
-      // Futuramente podemos criar um endpoint /users no backend
-      const mockUsers: User[] = [
-        { id: "1", name: "Ash Ketchum", email: "ash@pokemon.com", role: "trainer" },
-        { id: "2", name: "Professor Oak", email: "oak@pokemon.com", role: "professor" },
-        { id: "3", name: "Misty", email: "misty@pokemon.com", role: "trainer" },
-      ];
-      setUsers(mockUsers);
+      const users = await apiClient.getUsers(token);
+      setUsers(users || []);
     } catch (error) {
       console.error('Error fetching users:', error);
     } finally {

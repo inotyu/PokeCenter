@@ -95,6 +95,16 @@ export const apiClient = {
       },
     });
   },
+
+  // Users endpoints
+  async getUsers(token: string) {
+    return this.request<any[]>('/users', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+  },
 };
 
 export type { ApiResponse, LoginResponse, Pokemon, CreatePokemonRequest } from './types';
