@@ -15,11 +15,8 @@ export class PokemonService {
     });
   }
 
-  async findAll(userId: string) {
+  async findAll() {
     return this.prisma.pokemon.findMany({
-      where: {
-        ownerId: userId,
-      },
       include: {
         owner: {
           select: {

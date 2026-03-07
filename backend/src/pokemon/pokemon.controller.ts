@@ -26,8 +26,8 @@ export class PokemonController {
   @Get()
   @ApiOperation({ summary: 'Get all Pokemons' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Pokemons retrieved successfully' })
-  async findAll(@GetUser() user: any) {
-    return this.pokemonService.findAll(user.id);
+  async findAll() {
+    return this.pokemonService.findAll();
   }
 
   @Get(':id')
