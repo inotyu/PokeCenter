@@ -6,8 +6,6 @@ export const apiClient = {
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
     const url = `${API_BASE_URL}${endpoint}`;
     
-    console.log(`🌐 API Request: ${options.method || 'GET'} ${url}`);
-    
     try {
       const response = await fetch(url, {
         headers: {
@@ -17,8 +15,6 @@ export const apiClient = {
         ...options,
       });
 
-      console.log(`📡 Response status: ${response.status} ${response.statusText}`);
-
       if (!response.ok) {
         let errorData;
         try {
@@ -26,7 +22,6 @@ export const apiClient = {
         } catch {
           errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
         }
-        console.error('❌ API Error:', errorData);
         throw new Error(errorData.message || 'Request failed');
       }
 
@@ -36,10 +31,8 @@ export const apiClient = {
       }
 
       const data = await response.json();
-      console.log('✅ API Success:', data);
       return data;
     } catch (error) {
-      console.error('💥 Network Error:', error);
       throw error;
     }
   },
