@@ -22,6 +22,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'https://pokecenter-kohl.vercel.app',
+      'https://pokecenter.vercel.app',
       'https://pokemon-center-frontend.vercel.app',
       'http://localhost:3000',
       ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : [])
