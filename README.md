@@ -1,13 +1,13 @@
 # 🏥 Pokémon Center — Sistema de Gerenciamento
 
 > **📝 Nota para Avaliação:** Os repositórios originais com todo o histórico de commits estão disponíveis em:
-> - **Backend:** [https://github.com/inotyu/pokecenter-backend](https://github.com/inotyu/pokecenter-backend)
-> - **Frontend:** [https://github.com/inotyu/PokemonCenter](https://github.com/inotyu/PokemonCenter)
-> Este README é uma versão organizada e consolidada para facilitar a avaliação do projeto completo.
+> - **Backend:** [BackEnd do Projeto](https://github.com/inotyu/pokecenter-backend)
+> - **Frontend:** [FrontEnd do Projeto](https://github.com/inotyu/PokemonCenter)
+> - Este README é uma versão organizada e consolidada para facilitar a avaliação do projeto completo.
 
 Bem-vindo ao **Pokémon Center**! Um sistema moderno e completo para treinadores e pesquisadores gerenciarem sua coleção de Pokémons de forma segura e intuitiva.
 
-🌐 **Site ao vivo:** [https://pokecenter-kohl.vercel.app](https://pokecenter-kohl.vercel.app)
+🌐 **Site ao vivo:** [PokeCenter](https://pokecenter-kohl.vercel.app)
 
 Este é um sistema completo para gerenciamento de Pokémons, composto por **frontend** e **backend**, permitindo que treinadores e pesquisadores autenticados realizem operações CRUD (Create, Read, Update, Delete) em uma base de dados compartilhada.
 
