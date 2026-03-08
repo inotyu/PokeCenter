@@ -1,3 +1,5 @@
+"use client";
+
 // Trigger deployment
 
 import { useState, FormEvent } from "react";
