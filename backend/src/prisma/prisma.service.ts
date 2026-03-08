@@ -1,24 +1,32 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
+declare global {
+  // Para evitar múltiplas instâncias no serverless
+  var prisma: PrismaService | undefined;
+}
+
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService extends PrismaClient implements OnModuleDestroy {
   constructor() {
     super({
       datasources: { db: { url: process.env.DATABASE_URL } },
-      // Configurações para serverless
       log: process.env.NODE_ENV === 'production' ? ['error'] : ['query', 'info', 'warn', 'error'],
     });
-  }
 
-  async onModuleInit() {
-    // Em serverless, não conectar automaticamente
-    if (process.env.NODE_ENV !== 'production') {
-      await this.$connect();
+    // Serverless-safe: reutiliza a instância global
+    if (process.env.NODE_ENV === 'production') {
+      if (!global.prisma) {
+        global.prisma = this;
+      }
+      return global.prisma;
     }
   }
 
   async onModuleDestroy() {
-    await this.$disconnect();
+    // No dev, desconecta normalmente
+    if (process.env.NODE_ENV !== 'production') {
+      await this.$disconnect();
+    }
   }
 }
