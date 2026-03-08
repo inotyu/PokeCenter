@@ -13,7 +13,7 @@
     }
   ],
   "env": {
-    "DATABASE_URL": "postgresql://postgres:pokecenter2025%40@db.oadumwhamowfngckklvw.supabase.co:5432/postgres?sslmode=require",
+    "DATABASE_URL": "postgresql://postgres.oadumwhamowfngckklvw:pokecenter2025%40@aws-0-us-west-2.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require",
     "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
     "JWT_EXPIRES_IN": "7d",
     "FRONTEND_URL": "https://pokecenter-kohl.vercel.app",
