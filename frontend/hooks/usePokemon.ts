@@ -60,11 +60,14 @@ export function usePokemon() {
     }
   }, []);
 
-  // Carregar Pokémon ao montar o componente
+  // Carregar Pokémon ao montar o componente (só se houver token)
   useEffect(() => {
     const token = localStorage.getItem('pokemon_token');
-    if (token) {
-      fetchPokemon(token);
+    if (token && typeof window !== 'undefined') {
+      // Só buscar se estiver na página dashboard
+      if (window.location.pathname === '/dashboard') {
+        fetchPokemon(token);
+      }
     }
   }, [fetchPokemon]);
 
