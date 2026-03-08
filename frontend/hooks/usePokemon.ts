@@ -64,17 +64,15 @@ export function usePokemon() {
     }
   }, []);
 
-  // Removido carregamento automático para evitar erros em outras páginas
-  // useEffect(() => {
-  //   const token = localStorage.getItem('pokemon_token');
-  //   if (token && typeof window !== 'undefined') {
-  //     // Verificação mais robusta da página atual
-  //     const isDashboardPage = window.location.pathname.startsWith('/dashboard');
-  //     if (isDashboardPage) {
-  //       fetchPokemon(token);
-  //     }
-  //   }
-  // }, [fetchPokemon]);
+  useEffect(() => {
+    const token = localStorage.getItem('pokemon_token');
+    if (token) {
+      console.log('usePokemon: token available, fetching pokemon');
+      fetchPokemon(token);
+    } else {
+      console.log('usePokemon: no token available');
+    }
+  }, [fetchPokemon]);
 
   return { pokemon, loading, add, update, remove, fetchPokemon };
 }
