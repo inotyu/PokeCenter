@@ -60,16 +60,17 @@ export function usePokemon() {
     }
   }, []);
 
-  // Carregar Pokémon ao montar o componente (só se houver token)
-  useEffect(() => {
-    const token = localStorage.getItem('pokemon_token');
-    if (token && typeof window !== 'undefined') {
-      // Só buscar se estiver na página dashboard
-      if (window.location.pathname === '/dashboard') {
-        fetchPokemon(token);
-      }
-    }
-  }, [fetchPokemon]);
+  // Removido carregamento automático para evitar erros em outras páginas
+  // useEffect(() => {
+  //   const token = localStorage.getItem('pokemon_token');
+  //   if (token && typeof window !== 'undefined') {
+  //     // Verificação mais robusta da página atual
+  //     const isDashboardPage = window.location.pathname.startsWith('/dashboard');
+  //     if (isDashboardPage) {
+  //       fetchPokemon(token);
+  //     }
+  //   }
+  // }, [fetchPokemon]);
 
-  return { pokemon, loading, add, update, remove };
+  return { pokemon, loading, add, update, remove, fetchPokemon };
 }

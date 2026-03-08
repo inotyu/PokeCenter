@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Plus, BarChart2, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { usePokemon } from "@/hooks/usePokemon";
@@ -18,9 +18,16 @@ import { Pokemon, PokemonFormData, PokemonType } from "@/types";
 
 export default function DashboardPage() {
   const { user, token } = useAuth();
-  const { pokemon, add, update, remove } = usePokemon();
+  const { pokemon, add, update, remove, fetchPokemon } = usePokemon();
   const { toasts, success, error } = useToast();
   const { getUserName } = useUsers();
+
+  // Carregar Pokémon quando o componente montar
+  useEffect(() => {
+    if (token) {
+      fetchPokemon(token);
+    }
+  }, [token, fetchPokemon]);
 
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<PokemonType | "all">("all");
