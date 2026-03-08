@@ -15,16 +15,16 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 24,
-          background: 'linear-gradient(135deg, #ff6b6b, #4ecdc4)',
+          fontSize: 20,
+          backgroundColor: '#3B5BA7',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: '#FFCB05',
           fontWeight: 'bold',
-          borderRadius: '4px',
+          borderRadius: '6px',
         }}
       >
         PC

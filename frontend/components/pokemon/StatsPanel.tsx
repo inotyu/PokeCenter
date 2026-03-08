@@ -67,8 +67,8 @@ export function StatsPanel({ pokemon }: StatsPanelProps) {
               key={type}
               className={`bg-gradient-to-br ${TYPE_CARD_COLORS[type] || TYPE_CARD_COLORS.normal} rounded-xl p-2 flex flex-col items-center gap-1`}
             >
-              <span className="text-white text-xs font-black capitalize">{type}</span>
-              <span className="text-white/80 text-[10px]">{count} pkm</span>
+              <span className="text-gray-900 text-xs font-black capitalize">{type}</span>
+              <span className="text-gray-700 text-[10px]">{count} pkm</span>
             </div>
           ))}
         </div>
