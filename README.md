@@ -26,17 +26,17 @@ Sistema para controle de Pokémons de um Centro Pokémon, onde treinadores ou pe
 ### ✅ Requisitos Cumpridos
 
 #### Frontend:
-- ✅ **Desenvolvido com React e NextJS com TypeScript**: Utilizamos Next.js 15 com App Router para roteamento eficiente, React 19 para componentes modernos e TypeScript 5 para tipagem forte e segurança de código.
+- ✅ **Desenvolvido com React e NextJS com TypeScript**: Ultilização de Next.js 15 com App Router para roteamento eficiente, React 19 para componentes modernos e TypeScript 5 para tipagem forte e segurança de código.
 - ✅ **Interface para gerenciamento de Pokémons (Pokedex administrativa)**: Criado um dashboard intuitivo com cards de Pokémons, formulários validados e navegação responsiva usando Tailwind CSS.
 - ✅ **Lista de Pokémons com opções para adicionar, editar e excluir**: Implementação de uma lista filtrável por tipo, com botões para CRUD, modais para edição e confirmação para exclusão.
-- ✅ **Páginas de login e registro para acesso autorizado**: Desenvolvemos páginas seguras com validação de formulários, integração com API JWT e redirecionamento automático.
+- ✅ **Páginas de login e registro para acesso autorizado**: Desenvolvido páginas seguras com validação de formulários, integração com API JWT e redirecionamento automático.
 
 #### Backend:
 - ✅ **API desenvolvida em Node.js com NestJS e TypeScript**: Contrução de uma API RESTful com NestJS 10, TypeScript 5 e arquitetura modular para escalabilidade.
-- ✅ **Endpoints RESTful para CRUD de Pokémons**: Criamos endpoints protegidos (GET, POST, PATCH, DELETE) com validação usando class-validator e proteção JWT.
+- ✅ **Endpoints RESTful para CRUD de Pokémons**: Criação de endpoints protegidos (GET, POST, PATCH, DELETE) com validação usando class-validator e proteção JWT.
 - ✅ **Campos obrigatórios: Nome, Tipo, Nível, HP, Pokedex Number**: Definidos DTOs rigorosos e schema Prisma para garantir integridade dos dados.
 - ✅ **Banco PostgreSQL com Prisma ORM**: Usado Prisma 5 para migrations seguras, queries type-safe e seed de dados iniciais.
-- ✅ **Sistema de autenticação (Login e Cadastro) com JWT**: Implementamos autenticação stateless com bcrypt para hash de senhas, Passport.js para estratégias JWT e guards para proteção de rotas.
+- ✅ **Sistema de autenticação (Login e Cadastro) com JWT**: Implementação de autenticação stateless com bcrypt para hash de senhas, Passport.js para estratégias JWT e guards para proteção de rotas.
 
 #### Extras:
 - ✅ **Deploy em Vercel (Frontend e Backend)**: Frontend hospedado em vercel.com, backend em vercel.com com integração automática via GitHub.
