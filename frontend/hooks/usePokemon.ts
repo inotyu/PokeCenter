@@ -65,10 +65,7 @@ export function usePokemon() {
   useEffect(() => {
     const token = localStorage.getItem('pokemon_token');
     if (token) {
-      console.log('usePokemon: token available, fetching pokemon');
       fetchPokemon(token);
-    } else {
-      console.log('usePokemon: no token available');
     }
   }, [fetchPokemon]);
 
