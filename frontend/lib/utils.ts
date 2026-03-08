@@ -56,6 +56,7 @@ export const TYPE_CARD_COLORS: Record<string, string> = {
   // Tipos compostos
   "fire/flying":    "from-orange-600 to-red-700",
   "grass/poison":   "from-green-600 to-emerald-700",
+  "dragon/flying":  "from-blue-700 to-indigo-800",
 };
 
 export function formatPokedexNumber(n: number) {

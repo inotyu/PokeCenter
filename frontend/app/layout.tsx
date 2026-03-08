@@ -6,8 +6,13 @@ import { AuthProvider } from "@/hooks/useAuth";
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito" });
 
 export const metadata: Metadata = {
-  title: "Pokémon Center — Sistema de Gerenciamento",
+  title: "PC — Pokémon Center",
   description: "Gerencie seus Pokémon no Centro Pokémon",
+  icons: {
+    icon: '/icon',
+    shortcut: '/icon',
+    apple: '/apple-icon',
+  },
 };
 
 export const viewport: Viewport = {
