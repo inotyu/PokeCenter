@@ -1,5 +1,5 @@
 // API Configuration
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://pokemon-center-backend.vercel.app/api';
+export const API_BASE_URL = 'https://pokemon-center-backend.vercel.app/api';
 
 // HTTP Client
 export const apiClient = {
