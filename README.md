@@ -1,141 +1,144 @@
-# 🎮 Pokémon Center
+# 🏥 Pokémon Center — Sistema de Gerenciamento
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Next.js-15.2.1-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
-  <img src="https://img.shields.io/badge/React-19.0.0-blue?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
-  <img src="https://img.shields.io/badge/TypeScript-5.0.0-blue?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/Tailwind-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
-</div>
+> **📝 Nota para Avaliação:** Os repositórios originais com todo o histórico de commits estão disponíveis em:
+> - **Backend:** [https://github.com/inotyu/pokecenter-backend](https://github.com/inotyu/pokecenter-backend)
+> - **Frontend:** [https://github.com/inotyu/PokemonCenter](https://github.com/inotyu/PokemonCenter)
+> Este README é uma versão organizada e consolidada para facilitar a avaliação do projeto completo.
 
-## 📖 Sobre o Projeto
+Bem-vindo ao **Pokémon Center**! Um sistema moderno e completo para treinadores e pesquisadores gerenciarem sua coleção de Pokémons de forma segura e intuitiva.
 
-O **Pokémon Center** é uma aplicação web moderna para gerenciamento de Pokémon, desenvolvida com as melhores tecnologias do mercado. O sistema permite que treinadores Pokémon cadastrem, editem e gerenciem seus Pokémons de forma intuitiva e responsiva.
+🌐 **Site ao vivo:** [https://pokecenter-kohl.vercel.app](https://pokecenter-kohl.vercel.app)
 
-### ✨ Funcionalidades
+Este é um sistema completo para gerenciamento de Pokémons, composto por **frontend** e **backend**, permitindo que treinadores e pesquisadores autenticados realizem operações CRUD (Create, Read, Update, Delete) em uma base de dados compartilhada.
 
-- 🔐 **Sistema de Autenticação** - Login seguro com múltiplos usuários de teste
-- 📱 **Design Responsivo** - Experiência perfeita em mobile, tablet e desktop
-- 🎯 **Filtros Avançados** - Busca por nome, número da Pokédex e tipo
-- ➕ **CRUD Completo** - Adicione, edite e remova Pokémons
-- 📊 **Painel de Estatísticas** - Visualização de dados em tempo real
-- 🎨 **Interface Moderna** - UI/UX inspirada no universo Pokémon
-- 🍔 **Menu Mobile** - Navegação intuitiva com hamburger menu
+### 🖥️ Frontend
+Interface moderna desenvolvida com Next.js, React e TypeScript, oferecendo uma experiência intuitiva para gerenciamento de Pokémons.
 
-### 🚀 Tecnologias Utilizadas
+### 🔧 Backend
+API robusta construída com NestJS, TypeScript e PostgreSQL, garantindo segurança, performance e escalabilidade.
 
-- **Frontend**: Next.js 15.2.1 com React 19
-- **Linguagem**: TypeScript para type safety
-- **Styling**: Tailwind CSS com design system customizado
-- **Ícones**: Lucide React
-- **Estado**: React Hooks com Context API
-- **Build**: Vite/Next.js optimized builds
+## 🎯 Desafio Técnico
 
-### 🎨 Design System
+Sistema para controle de Pokémons de um Centro Pokémon, onde treinadores ou pesquisadores podem operar um CRUD (Create, Read, Update, Delete), será desenvolvido tanto frontend quanto backend. O sistema deve ser restrito, permitindo o gerenciamento apenas para usuários autenticados.
 
-O projeto utiliza um design system inspirado no universo Pokémon:
+> **🎉 Desafio Técnico 100% Cumprido!** Este projeto atende integralmente aos requisitos do desafio proposto, incluindo frontend, backend, autenticação, CRUD, deploy e testes automatizados.
 
-- 🎨 **Cores Temáticas**: Azul Pokémon (#3B5BA7), Amarelo (#FFCB05)
-- 📱 **Breakpoints**: Mobile-first com 5 pontos de quebra
-- 🎯 **Componentes**: Biblioteca UI reutilizável e consistente
-- ✨ **Animações**: Transições suaves e micro-interações
+### ✅ Requisitos Cumpridos
 
-### 📱 Responsividade
+#### Frontend:
+- ✅ **Desenvolvido com React e NextJS com TypeScript**: Utilizamos Next.js 15 com App Router para roteamento eficiente, React 19 para componentes modernos e TypeScript 5 para tipagem forte e segurança de código.
+- ✅ **Interface para gerenciamento de Pokémons (Pokedex administrativa)**: Criamos um dashboard intuitivo com cards de Pokémons, formulários validados e navegação responsiva usando Tailwind CSS.
+- ✅ **Lista de Pokémons com opções para adicionar, editar e excluir**: Implementamos uma lista filtrável por tipo, com botões para CRUD, modais para edição e confirmação para exclusão.
+- ✅ **Páginas de login e registro para acesso autorizado**: Desenvolvemos páginas seguras com validação de formulários, integração com API JWT e redirecionamento automático.
 
-A aplicação foi desenvolvida com mobile-first approach:
+#### Backend:
+- ✅ **API desenvolvida em Node.js com NestJS e TypeScript**: Construímos uma API RESTful com NestJS 10, TypeScript 5 e arquitetura modular para escalabilidade.
+- ✅ **Endpoints RESTful para CRUD de Pokémons**: Criamos endpoints protegidos (GET, POST, PATCH, DELETE) com validação usando class-validator e proteção JWT.
+- ✅ **Campos obrigatórios: Nome, Tipo, Nível, HP, Pokedex Number**: Definimos DTOs rigorosos e schema Prisma para garantir integridade dos dados.
+- ✅ **Banco PostgreSQL com Prisma ORM**: Usamos Prisma 5 para migrations seguras, queries type-safe e seed de dados iniciais.
+- ✅ **Sistema de autenticação (Login e Cadastro) com JWT**: Implementamos autenticação stateless com bcrypt para hash de senhas, Passport.js para estratégias JWT e guards para proteção de rotas.
 
-- 📱 **Mobile** (< 768px): Layout otimizado para toque
-- 📱 **Tablet** (768px - 1024px): Layout adaptativo
-- 🖥️ **Desktop** (> 1024px): Experiência completa com sidebar
-- 🖥️ **Large Desktop** (> 1536px): Grid otimizado para telas grandes
+#### Extras:
+- ✅ **Deploy em Vercel (Frontend e Backend)**: Frontend hospedado em vercel.com, backend em vercel.com com integração automática via GitHub.
+- ✅ **Testes automatizados (Jest + Supertest para e2e)**: Criamos testes e2e completos para auth e pokemon, cobrindo cenários de sucesso, erro e segurança.
 
-### 🏗️ Estrutura do Projeto
+#### Regras Específicas:
+- ✅ **Sistema restrito a usuários autenticados**: Todas as rotas protegidas por JWT, com middleware de autenticação.
+- ✅ **Lista de Pokémons global e compartilhada**: Pokémons visíveis para todos os usuários logados, mas edição restrita ao criador.
+- ✅ **Apenas o criador pode editar/excluir seu Pokémon**: Validação no service com verificação de ownerId antes de operações de update/delete.
 
-```
-pokemon-center/
-├── app/                    # Páginas Next.js App Router
-│   ├── dashboard/          # Dashboard principal
-│   ├── login/             # Página de login
-│   └── layout.tsx         # Layout raiz
-├── components/             # Componentes reutilizáveis
-│   ├── ui/               # Componentes base (Button, Input, Modal)
-│   ├── layout/           # Componentes de layout (Sidebar, MobileMenu)
-│   └── pokemon/         # Componentes específicos de Pokémon
-├── hooks/                # React Hooks customizados
-├── lib/                  # Utilitários e configurações
-├── types/                # Definições TypeScript
-└── data/                 # Dados mockados para desenvolvimento
+## 🚀 Deployments
+
+- **Frontend:** [https://pokecenter-kohl.vercel.app](https://pokecenter-kohl.vercel.app)
+- **Backend API:** [https://pokemon-center-backend.vercel.app](https://pokemon-center-backend.vercel.app)
+- **Backend Repo:** [https://github.com/inotyu/pokecenter-backend](https://github.com/inotyu/pokecenter-backend)
+
+## 🚀 Começando
+
+```bash
+npm install
+npm run dev
 ```
 
-### 🔧 Instalação e Execução
+Acesse: [http://localhost:3000](http://localhost:3000)
 
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/inotyu/PokemonCenter.git
-   cd PokemonCenter
-   ```
+## 🔐 Credenciais de Teste
 
-2. **Instale as dependências**
-   ```bash
-   npm install
-   ```
-
-3. **Inicie o servidor de desenvolvimento**
-   ```bash
-   npm run dev
-   ```
-
-4. **Acesse a aplicação**
-   ```
-   http://localhost:3000
-   ```
-
-### 🎮 Credenciais de Teste
-
-Use estas credenciais para explorar a aplicação:
-
-| Email | Senha | Tipo |
-|-------|--------|------|
+| E-mail | Senha | Função |
+|---|---|---|
 | ash@pokemon.com | pikachu123 | Treinador |
-| oak@pokemon.com | research123 | Professor |
-| misty@pokemon.com | starmie123 | Líder de Ginásio |
+| oak@pokemon.com | research123 | Pesquisador |
+| misty@pokemon.com | starmie123 | Treinador |
 
-### 🚀 Deploy
+> **Regra:** Apenas o criador do Pokémon pode editá-lo ou excluí-lo.
 
-A aplicação está otimizada para deploy em plataformas modernas:
+## 📁 Estrutura do Projeto
 
-- **Vercel** (Recomendado): Deploy automático com `vercel`
-- **Netlify**: Build estático com `npm run build`
-- **Railway**: Container Docker com `npm start`
+### 🖥️ Frontend
+```
+pokecenter-frontend/
+├── app/
+│   ├── login/         # Página de login
+│   ├── register/      # Página de registro
+│   └── dashboard/     # Dashboard principal (protegido)
+├── components/
+│   ├── ui/            # Button, Input, Modal, TypeBadge
+│   ├── pokemon/       # PokemonCard, PokemonForm, SearchBar, StatsPanel
+│   └── layout/        # Sidebar
+├── hooks/
+│   ├── useAuth.tsx    # Context de autenticação
+│   └── usePokemon.ts  # Estado e CRUD de Pokémon
+├── data/
+│   └── mock.ts        # Dados mockados
+├── lib/
+│   └── utils.ts       # Utilitários e cores por tipo
+└── types/
+    └── index.ts       # Tipos TypeScript globais
+```
 
-### 📱 Demonstração
+### 🔧 Backend
+```
+pokecenter-backend/
+├── src/
+│   ├── auth/                    # Módulo de autenticação
+│   │   ├── auth.controller.ts  # Endpoints: /auth/login, /auth/register
+│   │   ├── auth.service.ts     # Lógica de autenticação JWT
+│   │   ├── auth.module.ts      # Configuração do módulo
+│   │   ├── jwt.strategy.ts     # Estratégia de validação JWT
+│   │   └── dto/
+│   │       └── auth.dto.ts     # DTOs de validação
+│   ├── pokemon/                 # Módulo de Pokémons
+│   │   ├── pokemon.controller.ts  # Endpoints CRUD completos
+│   │   ├── pokemon.service.ts    # Lógica de negócio
+│   │   ├── pokemon.module.ts
+│   │   └── dto/
+│   ├── prisma/                  # Configuração do banco
+│   ├── common/                  # Guards, decorators
+│   └── users/                   # Módulo de usuários
+├── test/                        # Testes e2e
+├── prisma/
+│   ├── schema.prisma            # Schema do banco
+│   └── seed.ts                  # Dados iniciais
+└── dist/                        # Build
+```
 
-- 🌐 **Live Demo**: [Em breve]
-- 📱 **Mobile First**: Teste no seu celular
-- 🎨 **Design System**: Inspiração Pokémon
+## 🛠️ Stack
 
-### 🤝 Contribuição
+- **Next.js 15** (App Router)
+- **React 19**
+- **TypeScript 5**
+- **Tailwind CSS 3**
+- **Lucide React** (ícones)
 
-Contribuições são bem-vindas! Por favor:
+## 📋 Funcionalidades
 
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
-### 📝 Licença
-
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-### 🙏 Agradecimentos
-
-- **Pokémon Company** - Pelos personagens e universo inspirador
-- **Next.js Team** - Pela framework incrível
-- **Tailwind CSS** - Pelo CSS utility-first
-- **Comunidade** - Pelo apoio e feedback constante
-
----
-
-<div align="center">
-  <strong>🎮 Gotta Catch 'Em All! 🎮</strong>
-</div>
+- ✅ Login e registro de usuários
+- ✅ Rota protegida (redirecionamento automático)
+- ✅ Listagem de Pokémon com busca e filtro por tipo
+- ✅ Adicionar Pokémon (formulário validado)
+- ✅ Editar Pokémon (somente o criador)
+- ✅ Excluir Pokémon com confirmação (somente o criador)
+- ✅ Painel lateral com estatísticas e destaques
+- ✅ Badges de tipo com cores por elemento
+- ✅ Barra de HP colorida por valor
+- ✅ Indicação visual de dono do Pokémon
