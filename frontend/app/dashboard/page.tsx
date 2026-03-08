@@ -19,7 +19,7 @@ import { Pokemon, PokemonFormData, PokemonType } from "@/types";
 export default function DashboardPage() {
   const { user, token } = useAuth();
   const { pokemon, loading, add, update, remove, fetchPokemon } = usePokemon();
-  const { toasts, success, error } = useToast();
+  const { toasts, success, error, removeToast } = useToast();
   const { getUserName } = useUsers();
 
   // Carregar Pokémon automaticamente quando o componente montar
@@ -220,7 +220,7 @@ export default function DashboardPage() {
         )}
       </Modal>
 
-      <ToastContainer toasts={toasts} onClose={(id) => {}} />
+      <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
   );
 }
