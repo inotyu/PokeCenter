@@ -11,10 +11,14 @@ export function usePokemon() {
   const fetchPokemon = useCallback(async (token: string) => {
     try {
       setLoading(true);
+      console.log('Fetching Pokemon with token:', token ? 'token exists' : 'no token');
       const data = await apiClient.getPokemon(token);
+      console.log('Pokemon data received:', data);
       setPokemon(data || []);
     } catch (error) {
       console.error('Error fetching pokemon:', error);
+      // Não falhar completamente em caso de erro
+      setPokemon([]);
     } finally {
       setLoading(false);
     }
