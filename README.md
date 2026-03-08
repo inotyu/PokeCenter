@@ -27,20 +27,20 @@ Sistema para controle de Pokémons de um Centro Pokémon, onde treinadores ou pe
 
 #### Frontend:
 - ✅ **Desenvolvido com React e NextJS com TypeScript**: Utilizamos Next.js 15 com App Router para roteamento eficiente, React 19 para componentes modernos e TypeScript 5 para tipagem forte e segurança de código.
-- ✅ **Interface para gerenciamento de Pokémons (Pokedex administrativa)**: Criamos um dashboard intuitivo com cards de Pokémons, formulários validados e navegação responsiva usando Tailwind CSS.
-- ✅ **Lista de Pokémons com opções para adicionar, editar e excluir**: Implementamos uma lista filtrável por tipo, com botões para CRUD, modais para edição e confirmação para exclusão.
+- ✅ **Interface para gerenciamento de Pokémons (Pokedex administrativa)**: Criado um dashboard intuitivo com cards de Pokémons, formulários validados e navegação responsiva usando Tailwind CSS.
+- ✅ **Lista de Pokémons com opções para adicionar, editar e excluir**: Implementação de uma lista filtrável por tipo, com botões para CRUD, modais para edição e confirmação para exclusão.
 - ✅ **Páginas de login e registro para acesso autorizado**: Desenvolvemos páginas seguras com validação de formulários, integração com API JWT e redirecionamento automático.
 
 #### Backend:
-- ✅ **API desenvolvida em Node.js com NestJS e TypeScript**: Construímos uma API RESTful com NestJS 10, TypeScript 5 e arquitetura modular para escalabilidade.
+- ✅ **API desenvolvida em Node.js com NestJS e TypeScript**: Contrução de uma API RESTful com NestJS 10, TypeScript 5 e arquitetura modular para escalabilidade.
 - ✅ **Endpoints RESTful para CRUD de Pokémons**: Criamos endpoints protegidos (GET, POST, PATCH, DELETE) com validação usando class-validator e proteção JWT.
-- ✅ **Campos obrigatórios: Nome, Tipo, Nível, HP, Pokedex Number**: Definimos DTOs rigorosos e schema Prisma para garantir integridade dos dados.
-- ✅ **Banco PostgreSQL com Prisma ORM**: Usamos Prisma 5 para migrations seguras, queries type-safe e seed de dados iniciais.
+- ✅ **Campos obrigatórios: Nome, Tipo, Nível, HP, Pokedex Number**: Definidos DTOs rigorosos e schema Prisma para garantir integridade dos dados.
+- ✅ **Banco PostgreSQL com Prisma ORM**: Usado Prisma 5 para migrations seguras, queries type-safe e seed de dados iniciais.
 - ✅ **Sistema de autenticação (Login e Cadastro) com JWT**: Implementamos autenticação stateless com bcrypt para hash de senhas, Passport.js para estratégias JWT e guards para proteção de rotas.
 
 #### Extras:
 - ✅ **Deploy em Vercel (Frontend e Backend)**: Frontend hospedado em vercel.com, backend em vercel.com com integração automática via GitHub.
-- ✅ **Testes automatizados (Jest + Supertest para e2e)**: Criamos testes e2e completos para auth e pokemon, cobrindo cenários de sucesso, erro e segurança.
+- ✅ **Testes automatizados (Jest + Supertest para e2e)**: Criado testes e2e completos para auth e pokemon, cobrindo cenários de sucesso, erro e segurança.
 
 #### Regras Específicas:
 - ✅ **Sistema restrito a usuários autenticados**: Todas as rotas protegidas por JWT, com middleware de autenticação.
