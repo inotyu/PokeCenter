@@ -5,6 +5,7 @@ export const API_BASE_URL = 'https://pokemon-center-backend.vercel.app';
 export const apiClient = {
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
     const url = `${API_BASE_URL}${endpoint}`;
+    console.log('API Request:', { url, endpoint, options });
     
     try {
       const response = await fetch(url, {
@@ -15,6 +16,8 @@ export const apiClient = {
         ...options,
       });
 
+      console.log('API Response:', { status: response.status, ok: response.ok, url });
+
       if (!response.ok) {
         let errorData;
         try {
@@ -22,6 +25,7 @@ export const apiClient = {
         } catch {
           errorData = { message: `HTTP ${response.status}: ${response.statusText}` };
         }
+        console.error('API Error:', errorData);
         throw new Error(errorData.message || 'Request failed');
       }
 
@@ -31,8 +35,10 @@ export const apiClient = {
       }
 
       const data = await response.json();
+      console.log('API Data:', data);
       return data;
     } catch (error) {
+      console.error('API Fetch Error:', error);
       throw error;
     }
   },
