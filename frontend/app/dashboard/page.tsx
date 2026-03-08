@@ -22,12 +22,15 @@ export default function DashboardPage() {
   const { toasts, success, error } = useToast();
   const { getUserName } = useUsers();
 
-  // Carregar Pokémon quando o componente montar
-  useEffect(() => {
-    if (token) {
+  // Carregar Pokémon manualmente quando o usuário clicar no botão
+  const [pokemonLoaded, setPokemonLoaded] = useState(false);
+
+  const loadPokemon = () => {
+    if (token && !pokemonLoaded) {
       fetchPokemon(token);
+      setPokemonLoaded(true);
     }
-  }, [token, fetchPokemon]);
+  };
 
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<PokemonType | "all">("all");
@@ -135,12 +138,20 @@ export default function DashboardPage() {
         </header>
 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4 md:py-6">
-          {filtered.length === 0 ? (
+          {!pokemonLoaded && (
+            <div className="flex flex-col items-center justify-center h-48 text-gray-400 mb-8">
+              <p className="text-base md:text-lg font-bold mb-4">Carregar Pokémon</p>
+              <Button onClick={loadPokemon} loading={false}>
+                Carregar Meus Pokémon
+              </Button>
+            </div>
+          )}
+          {pokemonLoaded && filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48 text-gray-400">
               <p className="text-base md:text-lg font-bold">Nenhum Pokémon encontrado</p>
               <p className="text-xs md:text-sm text-center">Tente ajustar os filtros ou adicione um novo Pokémon.</p>
             </div>
-          ) : (
+          ) : pokemonLoaded && (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 md:gap-4">
               {filtered.map((p) => (
                 <PokemonCard
