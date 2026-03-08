@@ -31,10 +31,10 @@ export default function RegisterPage() {
     setLoading(true);
     const result = await register("", form.email, form.password, "trainer");
     setLoading(false);
-    if (result) {
+    if (result.success) {
       router.push("/dashboard");
     } else {
-      setErrors({ email: 'Erro ao criar conta' });
+      setErrors({ email: result.error || 'Erro ao criar conta' });
     }
   }
 

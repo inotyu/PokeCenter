@@ -5,8 +5,8 @@ import { User, AuthState } from "@/types";
 import { apiClient } from "@/lib/api";
 
 interface AuthContextValue extends AuthState {
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string, role: User["role"]) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  register: (name: string, email: string, password: string, role: User["role"]) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
 }
 
@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     token: null 
   });
 
-  const login = useCallback(async (email: string, password: string): Promise<boolean> => {
+  const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       const response = await apiClient.login(email, password);
       
@@ -35,15 +35,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('pokemon_user', JSON.stringify(response?.user));
       }
       
-      return true;
-    } catch (error) {
-      console.error('Login error:', error);
-      return false;
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message || 'Erro no login' };
     }
   }, []);
 
   const register = useCallback(
-    async (name: string, email: string, password: string, role: User["role"]): Promise<boolean> => {
+    async (name: string, email: string, password: string, role: User["role"]): Promise<{ success: boolean; error?: string }> => {
       try {
         const response = await apiClient.register(email, password);
         
@@ -58,12 +57,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           localStorage.setItem('pokemon_token', response?.access_token);
           localStorage.setItem('pokemon_user', JSON.stringify(response?.user));
           
-          return true;
+          return { success: true };
         }
-        return false;
+        return { success: false, error: 'Falha no registro' };
       } catch (error: any) {
-        console.error('Register error:', error);
-        return false;
+        return { success: false, error: error.message || 'Erro ao criar conta' };
       }
     }, []
   );
