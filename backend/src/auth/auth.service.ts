@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
@@ -48,12 +48,12 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error('Invalid credentials');
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
     if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const token = this.generateToken(user.id, user.email);

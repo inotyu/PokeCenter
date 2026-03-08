@@ -17,7 +17,11 @@ async function bootstrap() {
 
   // CORS configuration
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://pokecenter-kohl.vercel.app',
+      'https://pokemon-center-frontend.vercel.app'
+    ],
     credentials: true,
   });
 

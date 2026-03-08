@@ -18,19 +18,19 @@ import { Pokemon, PokemonFormData, PokemonType } from "@/types";
 
 export default function DashboardPage() {
   const { user, token } = useAuth();
-  const { pokemon, add, update, remove, fetchPokemon } = usePokemon();
+  const { pokemon, loading, add, update, remove, fetchPokemon } = usePokemon();
   const { toasts, success, error } = useToast();
   const { getUserName } = useUsers();
 
-  // Carregar Pokémon manualmente quando o usuário clicar no botão
+  // Carregar Pokémon automaticamente quando o componente montar
   const [pokemonLoaded, setPokemonLoaded] = useState(false);
 
-  const loadPokemon = () => {
+  useEffect(() => {
     if (token && !pokemonLoaded) {
       fetchPokemon(token);
       setPokemonLoaded(true);
     }
-  };
+  }, [token, fetchPokemon, pokemonLoaded]);
 
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<PokemonType | "all">("all");
@@ -138,20 +138,17 @@ export default function DashboardPage() {
         </header>
 
         <div className="flex-1 overflow-y-auto px-4 md:px-8 py-4 md:py-6">
-          {!pokemonLoaded && (
-            <div className="flex flex-col items-center justify-center h-48 text-gray-400 mb-8">
-              <p className="text-base md:text-lg font-bold mb-4">Carregar Pokémon</p>
-              <Button onClick={loadPokemon} loading={false}>
-                Carregar Meus Pokémon
-              </Button>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center h-48 text-gray-400">
+              <p className="text-base md:text-lg font-bold">Buscando...</p>
+              <p className="text-xs md:text-sm text-center">Carregando seus Pokémon</p>
             </div>
-          )}
-          {pokemonLoaded && filtered.length === 0 ? (
+          ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48 text-gray-400">
               <p className="text-base md:text-lg font-bold">Nenhum Pokémon encontrado</p>
               <p className="text-xs md:text-sm text-center">Tente ajustar os filtros ou adicione um novo Pokémon.</p>
             </div>
-          ) : pokemonLoaded && (
+          ) : (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 md:gap-4">
               {filtered.map((p) => (
                 <PokemonCard

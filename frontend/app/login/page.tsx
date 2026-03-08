@@ -36,12 +36,12 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    const ok = await login(email, password);
+    const result = await login(email, password);
     setLoading(false);
-    if (ok) {
+    if (result.success) {
       router.push("/dashboard");
     } else {
-      setError("E-mail ou senha incorretos.");
+      setError(result.error || "E-mail ou senha incorretos.");
     }
   }
 
